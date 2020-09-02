@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Admin DashBoard</title>
+	<meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=3.0, minimum-scale=0.86">
+
+	<!-- bar chart js -->
+   <script type="text/javascript">
+	  window.onload = function () {
+	    var chart = new CanvasJS.Chart("chartContainer",
+	    {
+
+	      title:{
+	      text: "Applications per week"
+	      },
+	      optios:{
+	      	responsive: false,
+	      	maintainAspectRatio: false,
+	      },
+	      data: [
+	      {
+	        type: "line",
+
+	        dataPoints: [
+	        {% for value in graph_data: %}
+		        { label: "{{(value.get('Date_Load'))}}", y: {{value.get('Mail_Count')}} },
+	        {%endfor%}
+	        ]
+	      }
+	      ]
+	    });
+
+	    chart.render();
+	  }
+	  </script>
+	 <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Gugi" rel="stylesheet">
+	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+	<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap.min.js"></script>
+	<script src="https://cdn.datatables.net/fixedheader/3.1.7/js/dataTables.fixedHeader.min.js"></script>
+	<script src="https://cdn.datatables.net/responsive/2.2.5/js/responsive.bootstrap.min.js"></script>
+	<script src="https://cdn.datatables.net/responsive/2.2.5/js/dataTables.responsive.min.js"></script>
+	<script>
+	    $(document).ready(function() {
+	      var table = $('#example').DataTable( {
+	          responsive: false
+	      } );
+	   
+	      new $.fn.dataTable.FixedHeader( table );
+	  } );
+	</script>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedheader/3.1.7/css/fixedHeader.bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.5/css/responsive.bootstrap.min.css">
+	<style>
+	   td,th{
+	      width: auto !important;
+	      white-space: normal;
+	      text-overflow: ellipsis;
+	      overflow: hidden;
+	      font-size: 10px;
+	    }
+	    table{
+	      width:100%!important;
+	      table-layout: fixed;
+	      max-height: 100px;
+	    }
+	</style>
+	<style>
+		.grid-container {
+		  display: grid;
+		  grid-gap: 20px;
+		  grid-template-columns: 1fr 1fr 1fr 1.5fr 1fr;
+		  grid-template-rows: 0.1fr 1fr 1fr 1fr 1fr 1fr;
+		  grid-template-areas: "Header Header Header Header Header"
+		  					   "Chart Chart summary search search"
+		  					   "Chart Chart summary report report"
+		  					   "Datatable Datatable Datatable report report"
+		  					   "Datatable Datatable Datatable report report"
+		  					   "Datatable Datatable Datatable Buttons Buttons";
+		}
+		.Header { grid-area: Header; }
+		.Chart { grid-area: Chart; background-color: white }
+		.search { grid-area: search; }
+		.Buttons { grid-area: Buttons; }
+		.Datatable { grid-area: Datatable;
+		padding-top: 50px; }
+		.report { grid-area: report;
+				border:10px solid black; }	
+		.summary { grid-area: summary;		 }
+		 p{
+		 	font-size: 20px;
+		 }
+		*{margin: 0; padding: 0; text-align: center; 
+			font-family:"Nimbus-sans", 'Gugi', cursive;	
+			resize: both;		}
+		h1{
+			font-size: 20px;
+
+		}	
+	</style>
+	<!-- search style -->
+	<style>
+		div#container {
+		  display: table;
+		  
+		  /* I want the whole search box
+		     to be exactly this wide. */
+		  width: 400px;
+		  
+		  margin: 50px auto 0;
+		}
+		div#container div.cell {
+		  display: table-cell;
+		}
+		div#container div.cell:last-child {
+		  /* Makes sure this cell is only wide enough
+		     for the button label. */
+		  width: 1px;
+		}
+
+		input[type=search], div.button {  
+		  width: 100%;
+		  height: 35px;
+
+		  -moz-box-sizing: border-box;
+		  box-sizing: border-box;
+		  
+		  font-family: inherit;
+		  font-size: inherit;
+		}
+
+		input[type=search] {
+		  margin: 0;
+		  padding: 0 10px;
+		  
+		  background-color: #f8f8f8;
+		  
+		  border: 0;
+		  border-top-left-radius: 5px;
+		  border-bottom-left-radius: 5px;
+		}
+
+		div.button {
+		  line-height: 35px;
+
+		  margin: 0;
+		  padding: 0 20px;
+
+		  color: #fff;
+		  background-color: #FF1717;
+		  font-weight: bold;
+		  
+		  border-top-right-radius: 5px;
+		  border-bottom-right-radius: 5px;
+		  
+		  white-space: nowrap;
+		}
+	</style>
+</head>
+<body>
+	<div class="grid-container">
+		<div class="Header">
+			<h4 style="text-align: right;float: right;">Hello<br> {{user}}</h4>
+			<h1>Welcome to Admin Dashboard</h1>
+		</div>
+		<div class="summary">
+			<p>No of Applications</p>
+			<p style="font-size: 15px;">{{n_app}}</p>
+		</div>
+		<div class="Chart">
+			<div id="chartContainer"></div>		
+		</div>
+		<br><br>
+		<div class="search">
+			<p>Enter valid candidate id here and get the consolidated results</p>
+			<div id='container'>  
+			  <div class='cell'>
+			  	<form action="results" method="POST">
+			  		<input type='search' name="report" placeholder='Type the candidate id here..'>
+			  		<input type="submit" name="submit" value="Submit">
+			  	</form>
+			  </div>
+			</div>
+		</div>
+		<div class="Buttons">
+			<form action="interview" method="POST">
+				<label for="date">Select a date:</label>				
+				<input type="date" id="interview-call" name="date">
+				<label for="time">Select a time:</label>				
+				<input type="time" id="interview-call" name="time">
+				<label for="comment">Any comment</label><br>
+				<input type="text" id="comment" name="comment" style="height: 100px;width: 300px;">
+		  		<input type="submit" name="Call for Interview" value="Call for Interview">
+		  	</form>
+		</div>
+		<div class="Datatable">
+			<!-- Data table goes here -->
+
+		  	<h5><b><i>You can see the Applications here</i></b></h5>
+		    	<table id="example" class="table table-striped table-bordered nowrap">
+		        <thead>
+		            <tr>
+		            {% for data in table_data[0]: %}
+		                <th>{{data}}</th>
+		            {% endfor%}
+		            </tr>
+		        </thead>
+		        	{% for data in table_data:%}
+		            <tr>
+		            	{%for row in data.values():%}
+		                <td>{{row}}</td>
+		                {% endfor%}
+		            </tr>
+		            {% endfor%}
+		        <tbody>
+		        </table>    
+		</div>
+		<div class="report">
+			{% if report!=''%}
+				{% for key, value in report[0].items(): %}
+				<p">{{key}} :- {{value}}</p>
+				{% endfor %}
+			{% endif%}
+		</div>
+	</div>
+	<footer>
+		&hearts; Made with &hearts; by AK &hearts;
+	</footer>
+
+
+</body>
+</html>
