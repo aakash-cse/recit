@@ -4,4 +4,3 @@ nltk==3.5
 pyresparser==1.0.6
 PyPDF2==1.26.0
 scikit_learn==0.23.2
-spacy==2.3.1
