@@ -1,5 +1,6 @@
-pyresparser==1.0.6
 imbox==0.9.8
 Flask==1.1.2
-gunicorn
-nltk
+nltk==3.5
+pyresparser==1.0.6
+PyPDF2==1.26.0
+scikit_learn==0.23.2
