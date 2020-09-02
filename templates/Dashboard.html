@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Admin DashBoard</title>
+	<meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=3.0, minimum-scale=0.86">
+
+	<!-- bar chart js -->
+   <script type="text/javascript">
+	  window.onload = function () {
+	    var chart = new CanvasJS.Chart("chartContainer",
+	    {
+	      title:{
+	      text: "Daily Applications Plot",
+	      fontFamily: "Helvetica Neue"
+	      },
+	      options:{
+	      },
+	      
+	      data: [
+	      {
+	        type: "line",
+	        dataPoints: [
+	        {% for value in graph_data: %}
+		        { label: "{{(value.get('Date_Load'))}}", y: {{value.get('Mail_Count')}} },
+	        {%endfor%}
+	        ]
+	      }
+	      ]
+	    });
+
+	    chart.render();
+	  }
+	  </script>
+	 <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Gugi" rel="stylesheet">
+	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+	<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap.min.js"></script>
+	<script src="https://cdn.datatables.net/fixedheader/3.1.7/js/dataTables.fixedHeader.min.js"></script>
+	<script src="https://cdn.datatables.net/responsive/2.2.5/js/responsive.bootstrap.min.js"></script>
+	<script src="https://cdn.datatables.net/responsive/2.2.5/js/dataTables.responsive.min.js"></script>
+	<script>
+	    $(document).ready(function() {
+	      var table = $('#example').DataTable( {
+	          responsive: false
+	      } );
+	   
+	      new $.fn.dataTable.FixedHeader( table );
+	  } );
+	</script>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedheader/3.1.7/css/fixedHeader.bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.5/css/responsive.bootstrap.min.css">
+	<style>
+		body{
+			background: #f7f5e6;
+		}
+		th{
+			background: lightblue;
+		}
+	   td,th{
+	      width: auto !important;
+	      white-space: normal;
+	      text-overflow: ellipsis;
+	      color: black;
+	      overflow: hidden;
+	      font-size: 10px;
+	    }
+	    table{
+	      width:100%!important;
+	      table-layout: fixed;
+	      max-height: 100px;
+	      background: white;
+	    }
+	</style>
+	<style>
+		body{
+			background:#f7f5e6 fixed;
+		}
+		.grid-container {
+		  display: grid;
+		  grid-gap: 20px;
+		  grid-template-columns: 1fr 0.5fr 1fr 1.5fr 1fr;
+		  grid-template-rows: 0.1fr 1fr 1fr 1fr 1fr 0.1fr;
+		  grid-template-areas: "Header Header Header Header Header"
+		  					   "Chart Chart Chart  search search"
+		  					   "Chart Chart Chart  report report"
+		  					   "Datatable Datatable  Datatable report report"
+		  					   "Datatable Datatable  Datatable report report"
+		  					   "Datatable Datatable  Datatable Buttons Buttons";
+		}
+		.Header { grid-area: Header; }
+		.Chart { grid-area: Chart;
+		}
+		.search { grid-area: search; }
+		.Buttons { grid-area: Buttons; }
+		.Datatable { grid-area: Datatable;
+		margin:10px 30px ; }
+		.report { grid-area: report;
+				border:10px solid black; }	
+		.summary { grid-area: summary;		 }
+		 p{
+		 	font-size: 20px;
+		 }
+		*{margin: 0; padding: 0; text-align: center; 
+			font-family:"Nimbus-sans", 'Gugi', cursive;	
+			resize: both;		}
+		h1{
+			font-size: 40px;
+
+		}	
+	</style>
+	<!-- search style -->
+	<style>
+		div#container {
+		  display: table;
+		  
+		  /* I want the whole search box
+		     to be exactly this wide. */
+		  width: 400px;
+		  
+		  margin: 25px auto 0;
+		}
+		div#container div.cell {
+		  display: table-cell;
+		}
+		div#container div.cell:last-child {
+		  /* Makes sure this cell is only wide enough
+		     for the button label. */
+		  width: 1px;
+		}
+
+		input[type=search], div.button {  
+		  width: 80%;
+		  height: 25px;
+
+		  -moz-box-sizing: border-box;
+		  box-sizing: border-box;
+		  
+		  font-family: inherit;
+		  font-size: inherit;
+		}
+
+		input[type=search] {
+		  margin: 0;
+		  padding: 0 10px;
+		  
+		  background-color: #f8f8f8;
+		  
+		  border: 0;
+		  border-top-left-radius: 5px;
+		  border-bottom-left-radius: 5px;
+		}
+
+		div.button {
+		  line-height: 35px;
+		  height: 50px;
+
+		  margin: 0;
+		  padding: 0 20px;
+
+		  color: #fff;
+		  background-color: #FF1717;
+		  font-weight: bold;
+		  
+		  border-top-right-radius: 5px;
+		  border-bottom-right-radius: 5px;
+		  
+		  white-space: nowrap;
+		}
+	</style>
+	<!-- logout styles -->
+	<style>
+		img {
+		  width: 25px;
+		  border-radius: 50px;
+		  float: left;
+		}
+
+		.logout {
+		  font-size: .8em;
+		  font-family: 'Oswald', sans-serif;
+			position: relative;
+		  right: -1px;
+		  bottom: -4px;
+		  overflow: hidden;
+		  letter-spacing: 3px;
+		  opacity: 0;
+		  transition: opacity .45s;
+		  -webkit-transition: opacity .35s;
+		  
+		}
+
+		.button {
+			text-decoration: none;
+			float: right;
+		  padding: 12px;
+		  margin: 15px;
+		  width: 25px;
+		  background-color: black;
+		  color: white;
+		  transition: width .35s;
+		  -webkit-transition: width .35s;
+		  overflow: hidden;
+		}
+
+		a:hover {
+		  width: 100px;color: white;text-decoration: none;
+		}
+
+		a:hover .logout{
+		  opacity: .9;color: white;text-decoration: none;
+		}
+
+		a {
+		  text-decoration: none;
+		}
+	</style>
+</head>
+<body>
+	<div class="grid-container">
+		<div class="Header">
+			<form align="right" name="form1" method="post" action="logout">
+				<a class="button" href="">
+				  	<div class="logout">LOGOUT</div>
+				</a>			  
+			</form>
+			<h4 style="text-align: right;float: right;">Hello<br> {{user}}</h4>
+			<h1><b>Welcome to Admin Dashboard</b></h1>			
+		</div>
+		<div class="Chart">
+			<div id="chartContainer" style="margin: 1% 10%;"></div>
+		</div>
+		<br><br>
+		<div class="search">
+			<div id='container'>  
+			  <div class='cell'>
+			  	<p>The number of candidates applied {{n_app}}</p><br>
+			  	<form action="results" method="POST">
+			  		<input type='search' name="report" required placeholder='Type the candidate id here..'>
+			  		<input type="submit" name="submit" value="Submit" style="float: right">
+			  	
+			  	</form>
+			  </div>
+			</div>
+		</div>
+		<div class="Buttons">
+			<form action="interview" method="POST">
+				<label for="date">Schedule</label>				
+				<input type="date" id="interview-call" name="date" style="cursor: pointer;" required>		
+				<input type="time" id="interview-call" name="time" style="cursor: pointer; width: 15%;" required>
+				<br>
+				<input type="text" id="comment" name="comment" required style="height: 100px;width: 500px;">
+				<br>
+		  		<input type="submit" style="color: black;width: 200px;" name="Call for Interview" value="Call for Interview">
+		  	</form>
+		</div>
+		<div class="Datatable" style="padding-top: 10%">
+			<!-- Data table goes here -->
+		    	<table id="example" class="table table-striped table-bordered nowrap">
+		        <thead>
+		            <tr>
+		            {% for data in table_data[0]: %}
+		                <th>{{data}}</th>
+		            {% endfor%}
+		            </tr>
+		        </thead>
+		        	{% for data in table_data:%}
+		            <tr>
+		            	{%for row in data.values():%}
+		                <td>{{row}}</td>
+		                {% endfor%}
+		            </tr>
+		            {% endfor%}
+		        <tbody>
+		        </table>    
+		</div>
+		<div class="report">
+			{% if report!=''%}
+				{% for key, value in report[0].items(): %}
+				<p">{{key}} :- {{value}}</p>
+				{% endfor %}
+			{% endif%}
+		</div>
+	</div>
+	<footer>
+		&hearts; Made with &hearts; by AK &hearts;
+	</footer>
+
+
+</body>
+</html>

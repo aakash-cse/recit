@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.8/angular-material.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-animate.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-aria.min.js"></script>
+  <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/t-114/svg-assets-cache.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.8/angular-material.min.js"></script>
+  <script>
+    angular.module('myApp', ['ngMaterial'])
+  </script>
+</head>
+
+<style>
+  body[ng-cloak] {
+    display:none;
+  }
+  body {
+        /* background-color: #FEEBC8; */
+  }
+  div[flex="30"] {
+    /*background-color: #DFDFDF;  */
+    background-color: black;
+  }
+
+  section[flex="45"] {
+    /*background-color: #D4E5FA; */
+  }
+  section[flex="80"] {
+    /*background-color: #E8FCD6; */
+  }
+  section[flex="20"] {
+   /*background-color: #FFD5E3; */
+  }
+  section[flex=""] {
+   /*background-color: rgba(0, 128, 0, 0.35);*/
+  }
+
+
+  /* Important to set height for column layout */
+  .boxWithHeight {
+    box-sizing: border-box;
+    height: 100%;
+  }
+
+  .a, section {
+    border: 1px solid rgba(85, 97, 85, 0.27);
+    /*margin: 5px;*/  
+  }
+
+  section {
+    /*background-color: #dedede;*/
+  }
+</style>
+<!--DATATABLE -->
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/fixedheader/3.1.7/js/dataTables.fixedHeader.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.5/js/responsive.bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.5/js/dataTables.responsive.min.js"></script>
+<script>
+    $(document).ready(function() {
+      var table = $('#example').DataTable( {
+          responsive: true
+      } );
+   
+      new $.fn.dataTable.FixedHeader( table );
+  } );
+</script>
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedheader/3.1.7/css/fixedHeader.bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.5/css/responsive.bootstrap.min.css">
+<style>
+   td,th{
+      width: auto !important;
+      white-space: normal;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+    table{
+      width:100%!important;
+      table-layout: fixed;
+    }
+</style>
+<style>
+  .container {
+    width: 100%;
+    max-width: 800px;
+  }
+
+  .container img {
+    width: 100%;
+    height: auto;
+  }
+
+  .container .btn {
+    position: relative;
+    top: 100%;
+    background-color: #f1f1f1;
+    color: black;
+    font-size: 16px;
+    padding: 16px 30px;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+  }
+
+  .container .btn:hover {
+    background-color: black;
+    color: white;
+  }
+</style>
+<style>
+  details > summary {
+    padding: 4px;
+    width: 200px;
+    background-color: #eeeeee;
+    border: none;
+    box-shadow: 1px 1px 2px #bbbbbb;
+    cursor: pointer;
+  }
+
+  details > p {
+    background-color: #eeeeee;
+    padding: 4px;
+    margin: 0;
+    box-shadow: 1px 1px 2px #bbbbbb;
+  }
+</style>
+<body layout="row" ng-app="myApp" class="icondemoFontIconsWithLigatures" ng-cloak>
+
+  <div flex="45" layout="column" class="boxWithHeight" layout-padding>
+    <section flex="20">
+      <!-- the info of no of name of the company and application goes here -->
+      <div style="text-align: center; margin: auto;">
+        <details>
+          <summary>No of Application</summary>
+          <p>No of Applications = 250</p>
+        </details>
+        <details>
+          <summary>No of Application</summary>
+          <p>No of Applications = 250</p>
+        </details>
+        <details>
+          <summary>No of Application</summary>
+          <p>No of Applications = 250</p>
+        </details>
+      </div>
+
+    </section>
+    <section flex>
+      <!-- the table goes here -->  
+      <table id="example" class="table table-striped table-bordered nowrap">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Office</th>
+                <th>Age</th>
+                <th>Start date</th>
+                <th>Salary</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Tiger Nixon</td>
+                <td>System Architect</td>
+                <td>Edinburgh</td>
+                <td>61</td>
+                <td>2011/04/25</td>
+                <td>$320,800</td>
+            </tr>
+            <tr>
+                <td>Garrett Winters</td>
+                <td>Accountant</td>
+                <td>Tokyo</td>
+                <td>63</td>
+                <td>2011/07/25</td>
+                <td>$170,750</td>
+            </tr>
+            <tr>
+                <td>Ashton Cox</td>
+                <td>Junior Technical Author</td>
+                <td>San Francisco</td>
+                <td>66</td>
+                <td>2009/01/12</td>
+                <td>$86,000</td>
+            </tr>
+            <tr>
+                <td>Cedric Kelly</td>
+                <td>Senior Javascript Developer</td>
+                <td>Edinburgh</td>
+                <td>22</td>
+                <td>2012/03/29</td>
+                <td>$433,060</td>
+            </tr>
+            <tr>
+                <td>Airi Satou</td>
+                <td>Accountant</td>
+                <td>Tokyo</td>
+                <td>33</td>
+                <td>2008/11/28</td>
+                <td>$162,700</td>
+            </tr>
+            <tr>
+                <td>Brielle Williamson</td>
+                <td>Integration Specialist</td>
+                <td>New York</td>
+                <td>61</td>
+                <td>2012/12/02</td>
+                <td>$372,000</td>
+            </tr>
+            <tr>
+                <td>Herrod Chandler</td>
+                <td>Sales Assistant</td>
+                <td>San Francisco</td>
+                <td>59</td>
+                <td>2012/08/06</td>
+                <td>$137,500</td>
+            </tr>
+            <tr>
+                <td>Rhona Davidson</td>
+                <td>Integration Specialist</td>
+                <td>Tokyo</td>
+                <td>55</td>
+                <td>2010/10/14</td>
+                <td>$327,900</td>
+            </tr>
+            <tr>
+                <td>Colleen Hurst</td>
+                <td>Javascript Developer</td>
+                <td>San Francisco</td>
+                <td>39</td>
+                <td>2009/09/15</td>
+                <td>$205,500</td>
+            </tr>
+            <tr>
+                <td>Sonya Frost</td>
+                <td>Software Engineer</td>
+                <td>Edinburgh</td>
+                <td>23</td>
+                <td>2008/12/13</td>
+                <td>$103,600</td>
+            </tr>
+          </tbody>
+        </table>    
+      <!-- Adding the search button to get the query -->
+      <form action="" method="">        
+        <input type="search" placeholder="Enter the candidate id here!">         
+        <button>Search</button>
+      </form>
+    </section>
+  </div>
+  <div flex layout="column" class="boxWithHeight" layout-padding>
+    
+    <section flex="80">
+      <!-- the complete content of the person goes -->
+      {"name": "M K", "email": "muthu1698@gmail.com", "mobile_number": "9003369922", "skills": ["Analysis", "Billing", "Python", "P", "Programming", "Electronics", "Forecasting", "Communication", "Aws", "Mysql", "Jupyter", "Github", "Tableau", "Certification", "Keras", "Analytical", "Sql server", "English", "C", "Anaconda", "Machine learning", "Engineering", "Statistics", "Sql", "Ai", "Spyder", "Windows", "R", "Training"], "college_name": null, "degree": null, "designation": null, "experience": null, "company_names": null, "no_of_pages": 2, "total_experience": 0}
+    </section>
+
+    <section flex="20">
+      <!-- the call button and other stuffs goes here -->
+      <div class="container" style="display: block;">
+        <button class="btn">Hire</button>
+        <button class="btn">Interview Call</button>
+        <label>Your Comments</label> 
+        <input class="w3-input" type="text">
+      </div>
+    </section>
+  </div>
+
+</body>
+</html>
