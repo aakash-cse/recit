@@ -67,9 +67,7 @@ def interview():
     if request.method == 'POST':
         interview_date = request.form['date']
         interview_time = request.form['time']
-        #candidate_id = request.form['report']
         comment = request.form['comment']
-        
         interview_mail(str(candidate_id))
     return "<h1>Interview mail sent</h1>"
 

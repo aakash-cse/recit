@@ -24,12 +24,12 @@ def email_content(ip, mail):
         # Create the plain-text and HTML version of your message
         text = """\
         Hi,
-        How are you?"""
+        This is a preview mail"""
         html = """\
         <html>
         <body>
             <p>Hi,<br>
-            How are you?<br>
+            This is a preview mail<br>
             </p>
         </body>
         </html>
@@ -47,12 +47,12 @@ def email_content(ip, mail):
         # Create the plain-text and HTML version of your message
         text = """\
         Hi,
-        How are you?"""
+        This is a Interview mail"""
         html = """\
         <html>
         <body>
             <p>Hi,<br>
-            How are you?<br>
+            This is a Interview mail<br>
             </p>
         </body>
         </html>

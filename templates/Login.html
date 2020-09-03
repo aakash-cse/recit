@@ -1,371 +1,578 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>
-    Login
-  </title>
+  <title>Aakash Dashboard</title>
+  <link href="https://fonts.googleapis.com/css?family=Rajdhani:300,400,500,600,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.typekit.net/yhg5oqt.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  
+  <style>
+      body {
+    font-family: "Nimbus-sans", sans-serif;
+    background: black;
+  }
+
+  .container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 1000px;
+  }
+
+  a {
+    display: inline-block;
+    text-decoration: none;
+  }
+
+  input {
+    outline: none !important;
+  }
+
+  h1 {
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+    font-weight: 700;
+  }
+
+  section#formHolder {
+    padding: 50px 0;
+  }
+
+  .brand {
+    padding: 40px;
+    border-radius: 4px 0 0 4px;
+    background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/708453/login-form-bg.png);
+    background-size: cover;
+    background-position: left center;
+    color: #fff;
+    min-height: 480px;
+    position: relative;
+    transition: all 0.6s cubic-bezier(1, -0.375, 0.285, 0.995);
+    z-index: 9999;
+  }
+
+  .brand.active {
+    width: 100%;
+  }
+
+  .brand::before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+  }
+
+  .brand a.logo {
+    text-decoration: none;
+    line-height: 1em;
+    border-radius: 4px;
+  }
+
+  .brand a.logo img {
+    width: 60px;
+  }
+
+  .brand .heading {
+    position: absolute;
+    bottom: 30px;
+    text-align: left;
+    width: 80%;
+    transition: all 0.6s;
+  }
+
+  .brand .heading.active {
+    top: 120px;
+    left: 100px;
+    text-align: center;
+    transform: translate(0);
+  }
+
+  .brand .heading h2 {
+    font-size: 28px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: .5em;
+    font-family: "Rajdhani", sans-serif;
+  }
+
+  .brand .heading p {
+    font-size: 16px;
+    font-weight: 400;
+    color: #cfd4dd;
+    white-space: 4px;
+    font-family: "Nimbus-sans", sans-serif;
+  }
+
+  .brand .success-msg {
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-top: 60px;
+  }
+
+  .brand .success-msg p {
+    font-size: 25px;
+    font-weight: 400;
+    font-family: "Rajdhani", sans-serif;
+  }
+
+  .brand .success-msg a {
+    font-family: "Rajdhani", sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    text-transform: uppercase;
+    padding: 8px 30px;
+    background: #00a2e5;
+    text-decoration: none;
+    color: #fff;
+    border-radius: 4px;
+  }
+
+  .brand .success-msg p, .brand .success-msg a {
+    transition: all 0.9s;
+    transform: translateY(20px);
+    opacity: 0;
+  }
+
+  .brand .success-msg p.active, .brand .success-msg a.active {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .form {
+    position: relative;
+  }
+
+  .form .form-peice {
+    border-radius: 4px;
+    background: #222c3c;
+    min-height: 480px;
+    color: #96a2b6;
+    padding: 30px 0 60px;
+    transition: all 0.9s cubic-bezier(1, -0.375, 0.285, 0.995);
+    position: absolute;
+    top: 0;
+    left: -30%;
+    width: 130%;
+    overflow: hidden;
+  }
+
+  .form .form-peice.switched {
+    transform: translateX(-100%);
+    width: 100%;
+    left: 0;
+  }
+
+  .form form {
+    padding: 0 40px;
+    margin: 0;
+    width: 70%;
+    position: absolute;
+    top: 50%;
+    left: 60%;
+    transform: translate(-50%, -50%);
+  }
+
+  .form form .form-heading h2 {
+    margin-top: 0;
+    font-family: "Rajdhani", sans-serif;
+    font-size: 28px;
+    color: #fff;
+  }
+
+  .form form .form-group {
+    margin-bottom: 5px;
+    position: relative;
+  }
+
+  .form form .form-group.hasError input {
+    border-color: #ffffff !important;
+  }
+
+  .form form .form-group.hasError label {
+    color: #ffffff !important;
+  }
+
+  .form form label {
+    font-size: 12px;
+    font-weight: 400;
+    text-transform: none;
+    font-family: "Nimbus-sans", sans-serif;
+    transform: translateY(40px);
+    transition: all 0.4s;
+    cursor: text;
+    z-index: -1;
+  }
+
+  .form form label.active {
+    transform: translateY(10px);
+    font-size: 10px;
+  }
+
+  .form form label.fontSwitch {
+    font-family: "Rajdhani", sans-serif !important;
+    font-weight: 600;
+  }
+
+  .form form input:not([type=submit]) {
+    background: none;
+    outline: none;
+    border: none;
+    display: block;
+    padding: 10px 0;
+    width: 100%;
+    border-bottom: 1px solid #96a2b6;
+    color: #fff;
+    font-size: 15px;
+    font-family: "Nimbus-sans", sans-serif;
+    z-index: 1;
+  }
+
+  .form form input:not([type=submit]).hasError {
+    border-color: #ffffff;
+  }
+
+  .form form span.error {
+    color: #f95959;
+    font-family: "Nimbus-sans", sans-serif;
+    font-size: 12px;
+    position: absolute;
+    bottom: -20px;
+    right: 0;
+    display: none;
+  }
+
+  .form form input[type=password] {
+    color: #ffffff;
+  }
+
+  .form form .CTA {
+    margin-top: 30px;
+  }
+
+  .form form .CTA input {
+    font-family: "Rajdhani", sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 10px 30px;
+    background: #00a2e5;
+    color: #fff;
+    border-radius: 4px;
+    margin-right: 20px;
+    width: 50%;
+    border: none;
+  }
+
+  .form form .CTA a.switch {
+    font-size: 13px;
+    font-weight: 400;
+    font-family: "Nimbus-sans", sans-serif;
+    color: #96a2b6;
+    text-decoration: underline;
+    transition: all 0.3s;
+  }
+
+  .form form .CTA a.switch:hover {
+    color: #ffffff;
+  }
+
+  footer {
+    text-align: center;
+  }
+
+  footer p {
+    color: #777;
+  }
+
+  footer p a, footer p a:focus {
+    color: #b8b09f;
+    transition: all .3s;
+    text-decoration: none !important;
+  }
+
+  footer p a:hover, footer p a:focus:hover {
+    color: #ffffff;
+  }
+
+  @media (max-width: 768px) {
+    .container {
+      overflow: hidden;
+    }
+
+    section#formHolder {
+      padding: 0;
+    }
+
+    section#formHolder div.brand {
+      min-height: 300px !important;
+    }
+
+    section#formHolder div.brand.active {
+      min-height: 100vh !important;
+    }
+
+    section#formHolder div.brand .heading.active {
+      top: 200px;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    section#formHolder div.brand .success-msg p {
+      font-size: 16px;
+    }
+
+    section#formHolder div.brand .success-msg a {
+      padding: 5px 30px;
+      font-size: 10px;
+    }
+
+    section#formHolder .form {
+      width: 80vw;
+      min-height: 500px;
+    }
+
+    section#formHolder .form .form-peice {
+      margin: 0;
+      top: 0;
+      left: 0;
+      width: 100% !important;
+      transition: all .5s ease-in-out;
+    }
+
+    section#formHolder .form .form-peice.switched {
+      transform: translateY(-100%);
+      width: 100%;
+      left: 0;
+    }
+
+    section#formHolder .form .form-peice > form {
+      width: 100% !important;
+      padding: 40px;
+      left: 50%;
+    }
+  }
+
+  @media (max-width: 480px) {
+    section#formHolder .form {
+      width: 100vw;
+      margin-left: 0;
+    }
+
+    h2 {
+      font-size: 20px !important;
+    }
+  }
+  </style>
+
 </head>
 <body>
-  <style>
-      @import url('https://fonts.googleapis.com/css?family=Dosis');
-      * {
-          box-sizing: border-box;
-          width:80%;
-          font-size: 5vmin;
-          font-family: Dosis, Helvetica, Arial, sans-serif;
-      }
+  <div class="container">
+     <section id="formHolder">
 
-      body {
-          color: black;
-          background:#125a6e fixed;
-          background-size: cover;
-          min-height: 100vh;
-          font-weight: 300;
-          line-height: 1.25;
-          letter-spacing: 1px;
-          display: flex;
-          justify-content: center;
-          margin: 0 auto;
-      }
-      .w100 {
-          width:100%;
-          height: 50vh;
-      }
-      .wrapper {
-        margin: 10vmin;
-        padding-left: 25%;
-      }
+        <div class="row">
+           <!-- Brand Box -->
+           <div class="col-sm-6 brand">
+              <a href="#" class="logo">
+                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/708453/Stasis_Logo_NEST---Colour_500x500.png">
+             </a>
 
-      .container {
-          position: relative;
-          display: flex;
-          background: rgba(0, 0, 0, 0.25);
-          box-shadow: -0.5em 1em 2em rgba(0, 0, 0, 0.5);
-          height:100%;
-          border-radius:1em;
-      }
+              <div class="heading">
+                 <h2>Welcome to Admin<br> Dashboard</h2>
+                 <p>Your sincerity will light up a family</p>
+              </div>
 
-      .container > input {
-          position: absolute;
-          top: 0;
-          left: -9999px;
-      }
+              <div class="success-msg">
+                 <p>Great! You are one of our members now</p>
+                 <a href="#" class="profile">Your Profile</a>
+              </div>
+           </div>
+           <!-- Form Box -->
+           <div class="col-sm-6 form">
+              <!-- Login Form -->
+              <div class="login form-peice">
+                 <form class="login-form" action="/" method="post">
+                    <div class="form-heading">
+                      <h2>Sign In</h2>
+                    </div>
+                    <div class="form-group">
+                       <label for="loginuser">User Name</label>
+                       <input type="text" name="loginuser" id="loginuser" required>
+                    </div>
 
-      .content {
-          background: #6fd8ed;
-          position: absolute;
-          display:flex;
-          top: 0;
-          left: 0;
-          height:100%;
-          justify-content: center;
-          align-items:center;
-          border-radius:1em;
-      }
+                    <div class="form-group">
+                       <label for="loginPassword">Password</label>
+                       <input type="password" name="loginPassword" id="loginPassword" required>
+                    </div>
 
-      form {    
-          display: flex;
-          flex-direction: column;
-          flex-wrap: wrap;
-          padding-top: 15vmin;
-          align-items: center;        
-      }
+                    <div class="CTA">
+                       <input type="submit" value="Sign In">
+                       <a href="#" class="switch">I'm New</a>
+                    </div>
+                 </form>
+              </div><!-- End Login Form  signup form-peice -->
+              <!-- Signup Form -->
+              <div class="signup form-peice switched">
+                 <form class="signup-form" action="/signup" method="post">
+                    <div class="form-heading">
+                     <h2>Create Account</h2>
+                    </div>
 
-      .field {
-          position: relative;
-          margin-bottom: 0.5em;
-      }
+                    <div class="form-group">
+                       <label for="name">User Name</label>
+                       <input type="text" name="username" id="username" class="username">
+                       <span class="error"></span>
+                    </div>
 
-      .field>input,
-      form>button {
-          border: none;
-          background: none;
-          outline:none;
-          color: white;
-      }
-      .field>input {
-          width: 80%;
-          border-bottom: 1px solid white;
-          text-indent: 1.5em;
-      }
-      .field.small  {    
-          margin: 1em 15% 0.5em 15%;
-          font-size:0.5em;
-      }
-      .field.small a {
-          font-size:1em;
-          color:white;
-      }
-       
-      button {
-          position: relative;
-          cursor: pointer;
-          margin-top:0.5em;
-          padding:5px;
-         
-        
-      }
-       
-      button>.icon {
-          width: 0%;
-          left:100%;
-          transition: all 0.5s ;
-      }
+                    <div class="form-group">
+                       <label for="email">Email Adderss</label>
+                       <input type="email" name="emailAdress" id="email" class="email">
+                       <span class="error"></span>
+                    </div>
 
-      button:hover>.icon {    
-          width: 1em;
-      }
+                    <div class="form-group">
+                       <label for="password">Password</label>
+                       <input type="password" name="password" id="password" class="pass">
+                       <span class="error"></span>
+                    </div>
 
-      .icon,.icon-eye {
-          display: inline-block;
-          width: 1em;
-          height: 1em;
-          stroke-width: 0;
-          stroke: currentColor;
-          fill: currentColor;
-          position: absolute;
-          bottom: 0.2em;
-          left: 0;
-      }
-      .icon-eye  {
-          cursor:pointer;
-          left: 100%;
-      }
-       
-      .svg-icons {
-          display: none;
-      }
+                    <div class="form-group">
+                       <label for="passwordCon">Confirm Password</label>
+                       <input type="password" name="passwordCon" id="passwordCon" class="passConfirm">
+                       <span class="error"></span>
+                    </div>
 
-      input:required+.icon {
-          transition: all 1s;
-      }
-      input:required:invalid {
-          box-shadow: none;
-          outline: none;
-      }
-      input:required:invalid:focus+.icon {
-          fill: red;
-          box-shadow: inset 0 0 1em 1em rgba(255,255,255,0.7);
-          border-radius: 0.25em;
-      }
-      input:required:valid +.icon {
-          fill: greenyellow;
-          border-radius: 3px;
-      }
-
-      ::-webkit-input-placeholder {
-          color: rgba(255,255,255,0.5);
-      }
-
-       input:focus::-webkit-input-placeholder {
-          transform:translateY(-10px);
-          font-size: 0.5em;
-      }
-
-      input:focus::-moz-placeholder  {
-          font-size: 0.5em;
-      }
-
-      .tabs {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          justify-content: center;
-          height: 2em;
-          z-index: 1;
-          text-align: center;
-      }
-
-      #tab1~#contentOne {
-          clip-path: polygon(50% 0, 50% 0, 50% 2em, 100% 2em, 100% 2em, 0 2em, 0 2em, 50% 2em);
-          transition: all 0.351s cubic-bezier(0.755, 0.05, 0.855, 0.06);
-
-      }
-
-      #tab1:checked~#contentOne {
-          clip-path: polygon(0 0, 50% 0, 50% 2em, 100% 2em, 100% 100%, 0 100%, 0 2em, 0 2em);
-      }
-
-      #tab2~#contentTwo {
-          clip-path: polygon(50% 0, 50% 0, 50% 2em, 100% 2em, 100% 2em, 0 2em, 0 2em, 50% 2em);
-          transition: all 0.351s cubic-bezier(0.755, 0.05, 0.855, 0.06);
-          background: #6fd8ed ;
-      }
-
-      #tab2:checked~#contentTwo {
-          clip-path: polygon(50% 0, 100% 0, 100% 2em, 100% 2em, 100% 100%, 0 100%, 0 2em, 50% 2em);
-      }
-
-      #tab1~.tabs .t1,
-      #tab1~.tabs .t2 {
-          color: #eee;
-          height: 2em;
-          padding-top:  0.5em;
-          font-variant: small-caps;
-          cursor: pointer;
-
-      }
-
-      #tab1:checked~.tabs .t1,
-      #tab2:checked~.tabs .t2 {
-          font-weight: bold;
-      }
-
-      .pop {
-          display: none;
-          position: absolute;
-          left: 0;
-          height: 100%;
-          justify-content: center;
-          align-items: center;
-          overflow: auto;    
-          background-color: rgba(0, 0, 0, 0.5);
-          z-index:2;
-          
-      }
-      .pop:target {
-          display:flex;
-      }
-
-      .pop:target  .dialog{
-        animation: scaleIn 0.25s;
-      }
-
-      .dialog {
-          position:relative;
-          width: 75%;
-          max-height: 85%; 
-          padding: 1em;
-          background: white;
-          color:steelblue;;
-          border-radius:0 1em 1em 1em;
-          overflow-y:auto;
-      } 
-      .dialog a,.dialog h2 {
-          color:white;
-          background: steelblue;
-          font-weight:bold;
-          text-decoration:none;
-          top:0;
-          right: 0;
-          position:absolute;
-          padding: 0.5em;
-          line-height: 0.5;
-      }
-      .dialog h2 {
-        left:0;
-        margin:0;
-      }
-
-      .dialog > form,.dialog > div  {padding-top:1.5em;font-size:0.75em;}
-      .dialog button,.dialog input { color:steelblue;}
-      .dialog input { border-bottom: 1px solid steelblue;}
-
-      @keyframes scaleIn {
-        0%   { 
-          clip-path: polygon(50% 50%, 50% 50%, 50% 50%, 50% 50%, 50% 50%, 50% 50%, 50% 50%, 50% 50%, 50% 50%, 50% 50%);
-        }
-        100% { 
-          clip-path: polygon(50% 0%, 98% 2%, 100% 35%, 100% 70%, 97% 98%, 50% 100%, 3% 98%, 0% 70%, 0% 35%, 2% 1%);
-          }
-      }
-  </style>
-  <script>
-    $ = id => {
-      return document.getElementById(id);
-    }
-    togglePassVisibility = el => {
-      $(el).type === "password"? 
-        $(el).type = "text"
-        : $(el).type = "password";
-      $("visible").style.display === "none"?
-        $("visible").style.display = "block"
-        : $("visible").style.display = "none";
-    }
-  </script>
-  <div class="wrapper w100">
-    <h1 style="font-family:;text-align: center;padding-left: 20%">Admin Dashboard</h1>
-    <div class="container w100">
-      <input id='tab1' name="tabs" type='radio' checked />
-      <input id='tab2' name="tabs" type='radio' />
-      <div class="tabs w100">
-        <label class="t1" for='tab1'>Login</label>
-        <label class="t2" for='tab2'>Sign up</label>
-      </div>
-      <div class="content w100" id="contentOne">
-        <form action="/" method="POST">
-          <div class="field">
-            <input id="uname" placeholder="Username" type="text" name="loginuser" required>
-            <svg class="icon">
-                              <use xlink:href="#icon-person"></use>
-                          </svg>
-          </div>
-          <div class="field">
-            <input id="upass" placeholder="Password" type="password" name="loginPassword" required>
-            <svg class="icon">
-                              <use xlink:href="#icon-lock"></use>
-                          </svg>
-            <svg class="icon-eye" onclick="togglePassVisibility('upass');">
-                              <use xlink:href="#icon-eye"></use>
-                          </svg>
-          </div>
-          <button type="submit"> Login
-                          <svg class="icon">
-                              <use xlink:href="#icon-arrow-right-outline"></use>
-                          </svg>
-                      </button>
-        </form>
-      </div>
-      <div class="content w100" id="contentTwo">
-        <form action="/signup" method="POST">
-          <div class="field">
-            <input id="rmail" placeholder="Email" type="email" name="email" required>
-            <svg class="icon">
-                              <use xlink:href="#icon-mail"></use>
-                          </svg>
-          </div>
-          <div class="field">
-            <input id="rname" placeholder="Username" type="text" name="username" required>
-            <svg class="icon">
-                              <use xlink:href="#icon-person"></use>
-                          </svg>
-          </div>
-          <div class="field">
-            <input id="rpass" placeholder="Password" type="password" name="password" required>
-            <svg class="icon">
-                              <use xlink:href="#icon-lock"></use>
-                          </svg>
-            <svg class="icon-eye" onclick="togglePassVisibility('rpass');">
-                              <use xlink:href="#icon-eye"></use>
-                          </svg>
-          </div>
-          <button type="submit"> Sign up
-                          <svg class="icon">
-                              <use xlink:href="#icon-arrow-right-outline"></use>
-                          </svg>
-                      </button>
-        </form>
-      </div>
-    </div>
+                    <div class="CTA">
+                       <input type="submit" value="Signup Now" id="submit">
+                       <a href="#" class="switch">I have an account</a>
+                    </div>
+                 </form>
+              </div><!-- End Signup Form -->
+           </div>
+        </div>
+     </section>
   </div>
-  <svg class="svg-icons">
-          <symbol id="icon-person" viewBox="0 0 24 24">
-              <path d="M12 14.016c2.672 0 8.016 1.313 8.016 3.984v2.016h-16.031v-2.016c0-2.672 5.344-3.984 8.016-3.984zM12 12c-2.203 0-3.984-1.781-3.984-3.984s1.781-4.031 3.984-4.031 3.984 1.828 3.984 4.031-1.781 3.984-3.984 3.984z"></path>
-          </symbol>
-          <symbol id="icon-lock" viewBox="0 0 24 24">
-              <path d="M8.5 11c0 0.732 0.166 1.424 0.449 2.051l-3.949 3.949c0 0 0 0.672 0 1.5s0.896 1.5 2 1.5h2v-2h2v-2c0 0 2.329 0 2.5 0 2.762 0 5-2.238 5-5s-2.238-5-5-5-5 2.238-5 5zM13.5 13c-1.104 0-2-0.896-2-2 0-1.105 0.896-2.002 2-2.002 1.105 0 2 0.896 2 2.002 0 1.104-0.895 2-2 2z"></path>
-          </symbol>
-          <symbol id="icon-mail" viewBox="0 0 24 24">
-              <path d="M12 11.016l8.016-5.016h-16.031zM20.016 18v-9.984l-8.016 4.969-8.016-4.969v9.984h16.031zM20.016 3.984c1.078 0 1.969 0.938 1.969 2.016v12c0 1.078-0.891 2.016-1.969 2.016h-16.031c-1.078 0-1.969-0.938-1.969-2.016v-12c0-1.078 0.891-2.016 1.969-2.016h16.031z"></path>
-          </symbol>
-          <symbol id="icon-arrow-right-outline" viewBox="0 0 24 24">
-                  <path d="M13.293 7.293c-0.391 0.391-0.391 1.023 0 1.414l2.293 2.293h-7.586c-0.552 0-1 0.448-1 1s0.448 1 1 1h7.586l-2.293 2.293c-0.391 0.391-0.391 1.023 0 1.414 0.195 0.195 0.451 0.293 0.707 0.293s0.512-0.098 0.707-0.293l4.707-4.707-4.707-4.707c-0.391-0.391-1.023-0.391-1.414 0z"></path>
-          </symbol>
-          <symbol id="icon-eye" viewBox="0 0 24 24">
-              <path d="M12 9c1.641 0 3 1.359 3 3s-1.359 3-3 3-3-1.359-3-3 1.359-3 3-3zM12 17.016c2.766 0 5.016-2.25 5.016-5.016s-2.25-5.016-5.016-5.016-5.016 2.25-5.016 5.016 2.25 5.016 5.016 5.016zM12 4.5c5.016 0 9.281 3.094 11.016 7.5-1.734 4.406-6 7.5-11.016 7.5s-9.281-3.094-11.016-7.5c1.734-4.406 6-7.5 11.016-7.5z"></path>
-              <rect id="visible" style="stroke-width:3;" width="19.118645" height="0.40677965" x="6.4119263" y="-3.57639"
-                  transform="matrix(0.54941993,0.83554637,-0.83554637,0.54941993,0,0)" />
-          </symbol>
-  </svg>
+
+  <script>
+    /*global $, document, window, setTimeout, navigator, console, location*/
+$(document).ready(function () {
+
+    'use strict';
+
+    var usernameError = true,
+        emailError    = true,
+        passwordError = true,
+        passConfirm   = true;
+
+    // Detect browser for css purpose
+    if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
+        $('.form form label').addClass('fontSwitch');
+    }
+
+    // Label effect
+    $('input').focus(function () {
+
+        $(this).siblings('label').addClass('active');
+    });
+
+    // Form validation
+    $('input').blur(function () {
+
+        // User Name
+        if ($(this).hasClass('name')) {
+            if ($(this).val().length === 0) {
+                $(this).siblings('span.error').text('Please type your full name').fadeIn().parent('.form-group').addClass('hasError');
+                usernameError = true;
+            } else if ($(this).val().length > 1 && $(this).val().length <= 6) {
+                $(this).siblings('span.error').text('Please type at least 6 characters').fadeIn().parent('.form-group').addClass('hasError');
+                usernameError = true;
+            } else {
+                $(this).siblings('.error').text('').fadeOut().parent('.form-group').removeClass('hasError');
+                usernameError = false;
+            }
+        }
+
+        // PassWord
+        if ($(this).hasClass('pass')) {
+            if ($(this).val().length < 8) {
+                $(this).siblings('span.error').text('Please type at least 8 charcters').fadeIn().parent('.form-group').addClass('hasError');
+                passwordError = true;
+            } else {
+                $(this).siblings('.error').text('').fadeOut().parent('.form-group').removeClass('hasError');
+                passwordError = false;
+            }
+        }
+
+        // PassWord confirmation
+        if ($('.pass').val() !== $('.passConfirm').val()) {
+            $('.passConfirm').siblings('.error').text('Passwords don\'t match').fadeIn().parent('.form-group').addClass('hasError');
+            passConfirm = false;
+        } else {
+            $('.passConfirm').siblings('.error').text('').fadeOut().parent('.form-group').removeClass('hasError');
+            passConfirm = false;
+        }
+
+        // label effect
+        if ($(this).val().length > 0) {
+            $(this).siblings('label').addClass('active');
+        } else {
+            $(this).siblings('label').removeClass('active');
+        }
+    });
+
+
+    // form switch
+    $('a.switch').click(function (e) {
+        $(this).toggleClass('active');
+        e.preventDefault();
+
+        if ($('a.switch').hasClass('active')) {
+            $(this).parents('.form-peice').addClass('switched').siblings('.form-peice').removeClass('switched');
+        } else {
+            $(this).parents('.form-peice').removeClass('switched').siblings('.form-peice').addClass('switched');
+        }
+    });
+
+
+    // Form submit
+    $('form.signup-form').submit(function (event) {
+        event.preventDefault();
+
+        if (usernameError == true || emailError == true || passwordError == true || passConfirm == true) {
+            $('.name, .email, .pass, .passConfirm').blur();
+        } else {
+            $('.signup, .login').addClass('switched');
+
+            setTimeout(function () { $('.signup, .login').hide(); }, 700);
+            setTimeout(function () { $('.brand').addClass('active'); }, 300);
+            setTimeout(function () { $('.heading').addClass('active'); }, 600);
+            setTimeout(function () { $('.success-msg p').addClass('active'); }, 900);
+            setTimeout(function () { $('.success-msg a').addClass('active'); }, 1050);
+            setTimeout(function () { $('.form').hide(); }, 700);
+        }
+    });
+
+    // Reload page
+    $('a.profile').on('click', function () {
+        location.reload(true);
+    });
+
+
+});
+
+  </script>
 
 </body>
 </html>

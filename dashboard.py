@@ -103,13 +103,10 @@ def get_interview_schedule():                   # To get interview schedule
     return(json.dumps([dict(ix) for ix in rows]))
 
 
-def preview_mail(usr_id):
-    # 1 to trigger the preview mail
+def preview_mail(usr_id):                               # 1 to trigger the preview mail
     email_content(1, get_mail_id(usr_id))
-    print('Preview Mail sent for Canidate_id: ', usr_id)
 
 
-# 2 to trigger the interview mail
-def interview_mail(usr_id):
-    print(email_content(2, get_mail_id(usr_id)))
-    print('Interview Mail sent for Canidate_id: ', usr_id)
+
+def interview_mail(usr_id):                             # 2 to trigger the interview mail
+    email_content(2, get_mail_id(usr_id))
