@@ -52,7 +52,15 @@ def team_manag():
 @app.route('/hiring', methods=['GET', 'POST'])
 def hiring():
     table_data = json.loads(get_all_details())
-    return render_template("dash_board.html",table_data=table_data,label=4)
+    return render_template("dash_board.html",report="",table_data=table_data,label=4)
+
+
+@app.route('/hiring_result', methods=['GET', 'POST'])
+def hiring_result():
+    table_data = json.loads(get_all_details())
+    if request.method == 'POST':
+        report = json.loads(get_user_details(str(request.form['cand_id'])))
+    return render_template("dash_board.html",report=report,table_data=table_data,label=4)
 
 @app.route('/user_manag', methods=['GET', 'POST'])
 def user_manag():
