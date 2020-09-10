@@ -1,0 +1,10 @@
+pyresparser==1.0.6
+imbox==0.9.8
+Flask==1.1.2
+spacy==2.3.1
+APScheduler==3.0.0
+gunicorn
+https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-2.2.0/en_core_web_sm-2.2.0.tar.gz
+# pip install pyresparser
+# python -m nltk.downloader words
+# python -m spacy download en_core_web_sm

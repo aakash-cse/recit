@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>Admin Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Gugi" rel="stylesheet">       
+    <link rel="icon" href="https://i.etsystatic.com/16886386/r/il/cf2fdf/1471470359/il_794xN.1471470359_2cvv.jpg">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
+    <!-- notification -->
+    <script>
+      function show_hide(){
+        var click = document.getElementById("notify-content");
+        if(click.style.display=="none"){
+          click.style.display=="block"
+        }
+      }
+    </script>
+
+    <!-- bar chart js -->
+   <script type="text/javascript">
+    window.onload = function () {
+      var chart = new CanvasJS.Chart("chartContainer",
+      {
+
+        title:{
+        text: "Stats of daily applications"
+        },
+        optios:{
+          responsive: true,
+          maintainAspectRatio: false
+        },
+        data: [
+        {
+          type: "area",
+
+          dataPoints: [
+          {% for value in graph_data: %}
+            { label: "{{(value.get('Date_Load'))}}", y: {{value.get('Mail_Count')}} },
+          {%endfor%}
+          ]
+        }
+        ]
+      });
+
+      chart.render();
+    }
+    </script>
+   <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <!-- data table -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap.min.js"></script>
+  <script src="https://cdn.datatables.net/fixedheader/3.1.7/js/dataTables.fixedHeader.min.js"></script>
+  <script src="https://cdn.datatables.net/responsive/2.2.5/js/responsive.bootstrap.min.js"></script>
+  <script>
+      $(document).ready(function() {
+        var table = $('#example').DataTable( {
+            responsive: false
+        } );
+     
+        new $.fn.dataTable.FixedHeader( table );
+    } );
+  </script>
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedheader/3.1.7/css/fixedHeader.bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.5/css/responsive.bootstrap.min.css">
+  <style>
+     td,th{
+        width: auto !important;
+        white-space: normal;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        font-size: 14px;
+      }
+      table{
+        width:100%!important;
+        table-layout: fixed;
+        max-height: 100px;
+      }
+  </style>
+    <!-- end -->
+
+    <style>
+        *{
+          margin: 0;
+          padding: 0;
+          list-style: none;
+          box-sizing: border-box;
+          font-family: "Gugi","Roboto", sans-serif;
+        }
+        a:link{
+          text-decoration: none!important;
+        }
+        .wrapper .header{
+          z-index: 1;
+          background: #22242A;
+          position: fixed;
+          width: calc(100% - 0%);
+          height: 70px;
+          display: flex;
+          top: 0;
+        }
+
+        .wrapper .header .header-menu{
+          width: calc(100% - 0%);
+          height: 100%;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 0 20px;
+        }
+
+        .wrapper .header .header-menu .title{
+          color: #fff;
+          font-size: 25px;
+          text-transform: uppercase;
+          font-weight: 900;
+        }
+
+        .wrapper .header .header-menu .title span{
+          color: #4CCEE8;
+        }
+
+        .wrapper .header .header-menu .sidebar-btn{
+          color: #fff;
+          position: absolute;
+          margin-left: 240px;
+          font-size: 22px;
+          font-weight: 900;
+          cursor: pointer;
+          transition: 0.3s;
+          transition-property: color;
+        }
+
+        .wrapper .header .header-menu .sidebar-btn:hover{
+          color: #4CCEE8;
+        }
+
+        .wrapper .header .header-menu ul{
+          display: flex;
+        }
+
+        .wrapper .header .header-menu ul li a{
+          background: #fff;
+          color: #000;
+          display: block;
+          margin: 0 10px;
+          font-size: 18px;
+          width: 34px;
+          height: 34px;
+          line-height: 35px;
+          text-align: center;
+          border-radius: 50%;
+          transition: 0.3s;
+          transition-property: background, color;
+        }
+
+        .wrapper .header .header-menu ul li a:hover{
+          background: #4CCEE8;
+          color: #fff;
+        }
+
+        .wrapper .sidebar{
+          z-index: 1;
+          background: #2F323A;
+          position: fixed;
+          top: 70px;
+          width: 250px;
+          height: calc(100% - 9%);
+          transition: 0.3s;
+          transition-property: width;
+          overflow-y: auto;
+        }
+
+        .wrapper .sidebar .sidebar-menu{
+          overflow: hidden;
+        }
+
+        .wrapper .sidebar .sidebar-menu .profile img{
+          margin: 20px 0;
+          width: 100px;
+          height: 100px;
+          border-radius: 50%;
+        }
+
+        .wrapper .sidebar .sidebar-menu .profile p{
+          color: #bbb;
+          font-weight: 700;
+          margin-bottom: 10px;
+        }
+
+        .wrapper .sidebar .sidebar-menu .item{
+          width: 250px;
+          overflow: hidden;
+        }
+
+        .wrapper .sidebar .sidebar-menu .item .menu-btn{
+          display: block;
+          color: #fff;
+          position: relative;
+          padding: 25px 20px;
+          transition: 0.3s;
+          transition-property: color;
+          font-family: Algerian;
+          font-size: 18px;
+        }
+
+        .wrapper .sidebar .sidebar-menu .item .menu-btn:hover{
+          color: #4CCEE8;
+        }
+
+        .wrapper .sidebar .sidebar-menu .item .menu-btn i{
+          margin-right: 20px;
+        }
+
+        .wrapper .sidebar .sidebar-menu .item .menu-btn .drop-down{
+          float: right;
+          font-size: 12px;
+          margin-top: 3px;
+        }
+
+        .wrapper .sidebar .sidebar-menu .item .sub-menu{
+          background: #3498DB;
+          overflow: hidden;
+          max-height: 0;
+          transition: 0.3s;
+          transition-property: background, max-height;
+        }
+
+        .wrapper .sidebar .sidebar-menu .item .sub-menu a{
+          display: block;
+          position: relative;
+          color: #fff;
+          white-space: nowrap;
+          font-size: 15px;
+          padding: 20px;
+          transition: 0.3s;
+          transition-property: background;
+        }
+
+        .wrapper .sidebar .sidebar-menu .item .sub-menu a:hover{
+          background: #55B1F0;
+        }
+
+        .wrapper .sidebar .sidebar-menu .item .sub-menu a:not(last-child){
+          border-bottom: 1px solid #8FC5E9;
+        }
+
+        .wrapper .sidebar .sidebar-menu .item .sub-menu i{
+          padding-right: 20px;
+          font-size: 10px;
+        }
+
+        .wrapper .sidebar .sidebar-menu .item:target .sub-menu{
+          max-height: 500px;
+        }
+
+        .wrapper .main-container{
+          width: (100% - 250px);
+          margin-top: 70px;
+          margin-left: 250px;
+          padding: 15px;
+          background: url(background.png)no-repeat;
+          background-size: cover;
+          height: 100vh;
+          transition: 0.3s;
+        }
+
+        .card-list {
+            width: 100%;
+            max-height: 30%;
+        }
+
+        .card-list:before,
+        .card-list:after {
+            content: " ";
+            display: table;
+        }
+
+        .card-list:after {
+            clear: both;
+        }
+
+        .card {
+            border-radius: 8px;
+            color: white;
+            padding: 10px;
+            position: relative;
+        }
+
+        .card .zmdi {
+            color: white;
+            font-size: 28px;
+            opacity: 0.3;
+            position: absolute;
+            right: 13px;
+            top: 13px;
+        }
+
+        .card .stat {
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+            font-size: 8px;
+            margin-top: 25px;
+            padding: 10px 10px 0;
+            text-transform: uppercase;
+        }
+
+        .card .title {
+            display: inline-block;
+            font-size: 8px;
+            padding: 10px 10px 0;
+            text-transform: uppercase;
+        }
+
+        .card .value {
+            font-size: 28px;
+            padding: 0 10px;
+        }
+
+        .card.blue {
+            background-color: #2298f1;
+        }
+
+        .card.green {
+            background-color: #66b92e;
+        }
+
+        .card.orange {
+            background-color: #da932c;
+        }
+        .dashboard-table{
+          width: 100%;
+          padding-right: 1%;
+          max-height: 100px;
+          position: relative;
+          margin-top: -550px;
+          padding-left: 18%;
+        }
+        .um-1{
+          width:49%;
+          padding: 10px 10px;
+          height: 100%;
+          display: inline-block;
+        }
+        .um-2{
+          float:right;
+          width:49%;
+          height: 100%;
+          margin-right: 1px;
+          padding: 10px 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <!--wrapper start-->
+    <div class="wrapper">
+        <!--header menu start-->
+        <div class="header">
+            <div class="header-menu">
+                <a href="/dashboard"><div class="title"><span>Recruit</span>-A-Thon</div></a>
+                <ul>
+                  <div class="w3-dropdown-hover" style="background:#22242A">
+                  <li><a href="#"><i class="fas fa-bell"></i></a></li>
+                  <div class="w3-dropdown-content w3-bar-block w3-border" style="right: 0;background: lightgrey;font-family: Verdana">
+                    {% for val in notif: %}
+                      <a href="#" class="w3-bar-item w3-button"><p>{{val}}</p></a>
+                    {% endfor%}
+                  </div>
+                  </div>
+                  <li><a href="logout"><i class="fas fa-power-off"></i></a></li>                        
+                </ul>
+            </div>
+
+        </div>
+        <!--header menu end-->
+        <!--sidebar start-->
+        <div class="sidebar">
+            <div class="sidebar-menu">
+                <li class="item">
+                    <a href="/dashboard" class="menu-btn">
+                        <i class="fas fa-desktop"></i><span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="item">
+                    <a href="incoming" class="menu-btn">
+                        <i class="fa fa-line-chart"></i><span>Resume Analyser</span>
+                    </a>
+                </li>
+                <li class="item" id="profile">
+                    <a href="team_manag" class="menu-btn">
+                        <i class="fas fa-user-circle"></i><span>Team Management</span>
+                    </a>
+                </li>
+                <li class="item" id="messages">
+                    <a href="hiring" class="menu-btn">
+                        <i class="fas fa-envelope"></i><span>Hiring</span>
+                    </a>
+                </li>
+                <li class="item" id="profile">
+                    <a href="user_manag" class="menu-btn">
+                        <i class="fas fa-user-circle"></i><span>User Management</span>
+                    </a>
+                </li>
+                <li class="item">
+                    <a href="about" class="menu-btn">
+                        <i class="fas fa-info-circle"></i><span>About</span>
+                    </a>
+                </li>
+            </div>
+        </div>
+        <!--sidebar end-->
+        <!--main container start -->
+        <div class="main-container">
+                {% if label==1: %}
+                  <div class="card-list">
+                    <div class="row">
+                        <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
+                            <div class="card blue">
+                                <div class="title">all projects</div>
+                                <i class="zmdi zmdi-upload"></i>
+                                <div class="value">{{p_count}}</div>
+                                <div class="stat"><b>13</b>% increase</div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
+                            <div class="card green">
+                                <div class="title">team members</div>
+                                <i class="zmdi zmdi-upload"></i>
+                                <div class="value">{{emp_cnt}}</div>
+                                <div class="stat"><b>4</b>% increase</div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
+                            <div class="card orange">
+                                <div class="title">total budget</div>
+                                <i class="zmdi zmdi-download"></i>
+                                <div class="value">$80,990</div>
+                                <div class="stat"><b>13</b>% decrease</div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="dashboard-table" style="margin-top: -35%;">
+                    <table id="example" class="table table-striped table-bordered nowrap">
+                    <thead>
+                        <tr>
+                        {% for data in table_data[0]: %}
+                            <th>{{data}}</th>
+                        {% endfor%}
+                        </tr>
+                    </thead>
+                      {% for data in table_data:%}
+                        <tr>
+                          {%for row in data.values():%}
+                            <td>{{row}}</td>
+                            {% endfor%}
+                        </tr>
+                        {% endfor%}
+                    <tbody>
+                    </table>   
+                  </div> 
+                {% elif label==2:%}
+                  <div class="Chart" style="width: 40%;position:absolute;">
+                    <div id="chartContainer"></div>   
+                  </div>      
+                  <div style="float:right;border:10px solid black;
+                  width:50%;padding: 10px 10px;height: 400px">
+                    <h1 style="text-align: center;">Resume Manager</h1>
+                    <!-- loading progress should be added -->
+                    <div>
+                      <a href="/reload"><button class="w3-btn w3-blue-grey">Reload</button></a>                   
+                    </div>
+                    <h4>No of application received today {{tdy_cnt}}</h4>
+                    <h4>Total aggregates resumes {{mail_cnt}}</h4>
+                    <h4>Job offered 11</h4>
+                    <h4>Job rejected 231</h4>
+                  </div>            
+                {% elif label==3:%}
+                <div class="card-list">
+                    <div class="row">
+                        <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
+                            <div class="card blue">
+                                <div class="title">all projects</div>
+                                <i class="zmdi zmdi-upload"></i>
+                                <div class="value">{{p_count}}</div>
+                                <div class="stat"><b>13</b>% increase</div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
+                            <div class="card green">
+                                <div class="title">team members</div>
+                                <i class="zmdi zmdi-upload"></i>
+                                <div class="value">{{emp_cnt}}</div>
+                                <div class="stat"><b>4</b>% increase</div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
+                            <div class="card orange">
+                                <div class="title">total budget</div>
+                                <i class="zmdi zmdi-download"></i>
+                                <div class="value">$80,990</div>
+                                <div class="stat"><b>13</b>% decrease</div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="dashboard-table">
+                    <table id="example" class="table table-striped table-bordered nowrap">
+                    <thead>
+                        <tr>
+                        {% for data in table_data[0]: %}
+                            <th>{{data}}</th>
+                        {% endfor%}
+                        </tr>
+                    </thead>
+                      {% for data in table_data:%}
+                        <tr>
+                          {%for row in data.values():%}
+                            <td>{{row}}</td>
+                            {% endfor%}
+                        </tr>
+                        {% endfor%}
+                    <tbody>
+                    </table>   
+                  </div> 
+
+                {% elif label==4:%}
+                <br><br><br>
+                  <div style="width: 50%">
+                    <table id="example" class="table table-striped table-bordered nowrap">
+                      <thead>
+                          <tr>
+                          {% for data in table_data[0]: %}
+                              <th>{{data}}</th>
+                          {% endfor%}
+                          </tr>
+                      </thead>
+                        {% for data in table_data:%}
+                          <tr>
+                            {%for row in data.values():%}
+                              <td>{{row}}</td>
+                              {% endfor%}
+                          </tr>
+                          {% endfor%}
+                      <tbody>
+                      </table>
+                  </div> 
+                  <div class="w3-container w3-teal" style="width: 49%;margin-top:-27%;float: right;">
+                    <h1>Search for Candidate</h1>
+                  </div>
+
+                  <div style="float: right;
+                  width:49%;height: 20%;margin-top:-20%;">
+                  <form class="w3-container" action="/hiring_result" method="POST">
+                      
+                      <label class="w3-text-teal"><b>Candidate id</b></label>            
+                    <input class="w3-input w3-border w3-light-grey" type="text" required name="cand_id" placeholder="Enter the candidate id"><br>
+                    <input class="w3-btn w3-blue-grey" type="submit" name="Search"> 
+                  </form>   
+                  </div>
+                  <div class="w3-container w3-teal" style="width: 50%">
+                  <h1>Call for Interview</h1>
+                </div>
+                  <div style="float: left;width: 50%;"><br>
+                  <form class="w3-container" action="/call_interview" method="POST">
+                      <label class="w3-text-teal"><b>Date</b></label>
+                      <input class="w3-input w3-border w3-light-grey" type="date" name="date" required><br>
+                      <label class="w3-text-teal"><b>Time</b></label>
+                      <input class="w3-input w3-border w3-light-grey" type="time" name="time" required><br>
+                      <label class="w3-text-teal"><b>Comment</b></label>
+                      <input class="w3-input w3-border w3-light-grey" type="text" name="cmt" style="height: 80px;" required><br>
+                      <input class="w3-btn w3-blue-grey" type="submit" name="Search">
+                  </form>  
+                    
+                  </div>
+                  {% if report!=''%}
+                  <div class="w3-container w3-teal" style="width: 49%;margin-top:-15%;float: right;">
+                    <h1>Consolidated Report</h1>
+                  </div>
+
+                  <div class="w3-container" style="text-align:center;float: right; padding-top: 2%;
+                  width:49%;margin-top: -10%;"> 
+                  {% for key, value in report[0].items(): %}
+                  <p style="font-size: 15px;">{{key}} :- {{value}}</p>
+                  {% endfor %}
+                  </div>
+                  {% endif%}
+                {% elif label==5:%}
+                <div class="um-1">
+                  <div class="w3-container w3-teal">
+                    <h2>Forget Password</h2>
+                  </div>
+
+                  <form class="w3-container" action="change_pwd" method="POST"><br>
+                    <label class="w3-text-teal"><b>Secret id</b></label>
+                    <input class="w3-input w3-border w3-light-grey" type="text" name="u_uid" required><br>
+
+                    <label class="w3-text-teal"><b>User name</b></label>
+                    <input class="w3-input w3-border w3-light-grey" type="text" name="u_name" required><br>
+
+                    <label class="w3-text-teal"><b>Password</b></label>
+                    <input class="w3-input w3-border w3-light-grey" type="password" name="u_pwd" required><br>
+
+                    <button class="w3-btn w3-blue-grey">Submit</button>
+                  </form>                  
+                </div>
+                <div class="um-2">
+
+                  <div class="w3-container w3-teal">
+                    <h2>Sign - up</h2>
+                  </div>
+
+                  <form class="w3-container" action="inside_signup" method="POST"><br>
+                    <label class="w3-text-teal"><b>User name</b></label>
+                    <input class="w3-input w3-border w3-light-grey" type="text" name="s_uname" required><br>
+
+                    <label class="w3-text-teal"><b>Email</b></label>
+                    <input class="w3-input w3-border w3-light-grey" type="email" name="s_email" required><br>
+
+                    <label class="w3-text-teal"><b>Password</b></label>
+                    <input class="w3-input w3-border w3-light-grey" type="password" name="s_pwd" required><br>
+                    <button class="w3-btn w3-blue-grey">Sign-up</button>
+                  </form> 
+                  {% if msg!=''%}
+                    {{ msg}}
+                    {% endif %}                 
+                </div>
+                {% else: %}
+                {{data}}
+                {% endif %}
+        </div>
+         <!-- main container end-->
+    </div>
+    <!--wrapper end-->
+</body>
+
+</html>
